@@ -1031,14 +1031,16 @@ def analysis():
 
 
 while True:
-    word_or_text = input('Выберите режим работы: слово (с) или текст (т) (для выхода наберите "exit"): ')
+    #word_or_text = input('Выберите режим работы: слово (с) или текст (т) (для выхода наберите "exit"): ')
+    word_or_text = 'т'
     if word_or_text == 'exit':
         break
     if word_or_text == 'с':
         word = input('Введите слово: ')
         print(analysis())
     elif word_or_text == 'т':
-        file_name = input('Укажите название файла: ')
+        #file_name = input('Укажите название файла: ')
+        file_name = 'ru.txt'
         morph = pymorphy2.MorphAnalyzer()
         with open(file_name, encoding='utf-8') as f:
             text = f.read().lower()
@@ -1053,11 +1055,13 @@ while True:
                     word_parts, labels = analysis()[0],  analysis()[1]
                     new_text += ' | '.join([word_print, '/'.join(word_parts), '/'.join(labels)]) + '\n'
                     information.append([word_print, word_parts, labels])
-        annotation_file = input('Введите название файла, в который Вам нужно сохранить результаты аннотирования: ')
+        #annotation_file = input('Введите название файла, в который Вам нужно сохранить результаты аннотирования: ')
+        annotation_file = 'annotation.txt'
         with open(annotation_file, 'w', encoding='utf-8') as f:
             f.write(new_text[:-1])
             print('В файл {} были записаны результаты аннотирования.'.format(annotation_file))
-        search = input('Выполнить поиск слов с определённым морфом (если да, нажмите "д", если нет - любую другую клавишу)? ')
+        #search = input('Выполнить поиск слов с определённым морфом (если да, нажмите "д", если нет - любую другую клавишу)? ')
+        search = 'н'
         if search != 'д':
             break
         else:
@@ -1073,7 +1077,8 @@ while True:
             if search_res == search_title:
                 print('Такого морфа в словоформах данного текста не было обнаружено.')
             else:
-                search_file_name = input('Введите название файла, в который Вам нужно сохранить результаты: ')
+                #search_file_name = input('Введите название файла, в который Вам нужно сохранить результаты: ')
+                search_file_name = 'ru_morphed.txt'
                 with open(search_file_name, 'w', encoding='utf-8') as f:
                     f.write(search_res[:-1])
                     print('В файл {} были записаны результаты поиска.'.format(search_file_name))
