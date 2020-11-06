@@ -1079,3 +1079,4 @@ while True:
         with open(annotation_file, 'w', encoding='utf-8') as f:
             f.write(new_text[:-1])
             print('В файл {} были записаны результаты аннотирования.'.format(annotation_file))
+        break
