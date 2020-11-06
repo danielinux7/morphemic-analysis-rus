@@ -44,6 +44,6 @@ def evaluation (file_name):
     fmeasure = round(2 * hits / (2 * hits + insertions + deletions), 3)
     return hits, insertions, deletions, precision, recall, fmeasure
 
-file_name = input('Введите имя файла: ')
+file_name = 'words500.txt'
 hits, insertions, deletions, precision, recall, fmeasure = evaluation(file_name)
 print('Hits: {}\nInsertions: {}\nDeletions: {}\nPrecision: {}\nRecall: {}\nF-measure: {}'.format(hits, insertions, deletions, precision, recall, fmeasure))
