@@ -1055,6 +1055,7 @@ while True:
                     word_parts, labels = analysis()[0],  analysis()[1]
                     new_text += ' | '.join([word_print, '/'.join(word_parts), '/'.join(labels)]) + '\n'
                     information.append([word_print, word_parts, labels])
+                    import pdb; pdb.set_trace()
         #annotation_file = input('Введите название файла, в который Вам нужно сохранить результаты аннотирования: ')
         annotation_file = 'annotation.txt'
         with open(annotation_file, 'w', encoding='utf-8') as f:
