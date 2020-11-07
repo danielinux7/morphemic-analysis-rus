@@ -139,14 +139,14 @@ def identify_ending(lst):
                             num_diff_letters = num_new
     if num_diff_letters == 0:
         before_ending = word
-        ending = '☐'
+        ending = ''
     else:
         ending = word[(len(word) - num_diff_letters):]
         before_ending = word[:-num_diff_letters]
         if ending.startswith('ь'):
             ending = ending[1:]
             if len(ending) == 0:
-                ending = '☐'
+                ending = ''
             before_ending = word[:-num_diff_letters] + 'ь'
     if len(word_parts):
         word_parts[0] = before_ending
@@ -541,7 +541,7 @@ def analysis(word2):
         elif 'impr' in p.tag:
             word_parts, labels = identify_postfix_ending_i_suffix(ending_plur_impr, 'окончание')
             if len(word_parts) == 1 or word_parts[1] != 'те':
-                word_parts, labels = insert_ending_or_i_suffix('☐', 'окончание')
+                word_parts, labels = insert_ending_or_i_suffix('', 'окончание')
             identify_postfix_ending_i_suffix(suffix_plur_impr1, 'суффикс')
             if word_parts[1] != 'и':
                 if word[-1] == 'й':
@@ -558,7 +558,7 @@ def analysis(word2):
     elif p.tag.POS in {'ADJS', 'PRTS'}:
         word_parts, labels = identify_postfix_ending_i_suffix(endings_adjs_and_prts, 'окончание')
         if (len(word_parts) == 1) or (word_parts[1] not in endings_adjs_and_prts):
-            word_parts, labels = insert_ending_or_i_suffix('☐', 'окончание')
+            word_parts, labels = insert_ending_or_i_suffix('', 'окончание')
         if p.tag.POS == 'PRTS':
             word_parts, labels = identify_postfix_ending_i_suffix(suffixes_prts, 'суффикс')
 
@@ -743,7 +743,7 @@ def analysis(word2):
                 if word in {'судей', 'судий', 'гостий', 'сватий', 'игумений'}:  # гостий, сватий, игумений - 388
                     word_parts[0] = word[:-2]
                     word_parts[1] = word[-2:]
-                    word_parts.insert(2, '☐')
+                    word_parts.insert(2, '')
                     labels = ['корень', 'суффикс', 'окончание']
                 elif word_without_ending in {'паклен', 'паужин', 'паветер', 'паветр', 'пагруздь', 'пагрузд',
                                              'пащенок',
@@ -805,7 +805,7 @@ def analysis(word2):
                         if word_parts[-1].startswith(k):
                             new_ending = word_parts[-1][len(k):]
                             if new_ending == '':
-                                new_ending = '☐'
+                                new_ending = ''
                             word_parts.append(new_ending)
                             labels[-1] = 'суффикс'
                             labels.append('окончание')
