@@ -1,6 +1,8 @@
 #coding=utf-8
 import pymorphy2
 import nltk
+from tqdm import tqdm
+nltk.download('punkt')
 import string
 
 postfixes_with_hyphen = ['-либо', '-нибудь', '-то']
@@ -1050,3 +1052,23 @@ def analysis(word2):
                 word_parts.insert(i, new_lst[a])
                 i += 1
         return word_parts
+def tokenize(text):
+   morph = pymorphy2.MorphAnalyzer()
+   text_tokenized = nltk.word_tokenize(text)
+   for t in text_tokenized:
+      p_t = morph.parse(t)[0]
+      if t.isalpha() and p_t.tag.POS not in {'PREP', 'CONJ', 'PRCL', "INTJ"}:
+         word_parts = analysis(t)
+         new_text = '▁' +' '.join(word_parts)
+         print(new_text)
+      else:
+         new_text = '▁' + t
+   return new_text
+def encode(filename):
+   new_text = ''
+   with open(filename) as f:
+      text = f.readlines()
+      text2 = [t.strip().split(' ') for t in text]
+      new_text = tqdm([' '.join([tokenize(t) for t in text])+'\n' for text in text2])
+   with open(filename+'_morphed.txt', 'w') as f:
+      f.writelines(new_text)
