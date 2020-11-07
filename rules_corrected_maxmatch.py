@@ -499,7 +499,8 @@ def analysis(word2):
     global morph
     global p
     global word
-    word_parts = [word2]
+    word = word2
+    word_parts = [word]
     morph = pymorphy2.MorphAnalyzer()
     p = morph.parse(word)[0]
     labels = ['?']
