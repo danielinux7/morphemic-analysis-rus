@@ -490,7 +490,7 @@ with open('Морфемно-орфографический словарь А. Н
             roots.append(k)
 
 
-def analysis():
+def analysis(word):
     global word_parts
     global labels
     global unknown
