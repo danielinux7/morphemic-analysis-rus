@@ -589,7 +589,7 @@ def analysis(word2):
     for num_part in range(len(word_parts)):
         if labels[num_part] != 'окончание' and not (p.tag.POS == 'VERB' and word_parts[num_part] == 'л') and word_parts[num_part] not in suffixes_infinitive and word_parts[num_part] not in suffixes_gerund and word_parts[num_part] not in suffixes_participle and word_parts[num_part] not in postfixes_reflective:
             word_without_ending += word_parts[num_part]
-
+    global mark
     mark = False
     if p.tag.POS == 'NOUN':
         if word_without_ending in {'безделушк', 'безделушек'}:
