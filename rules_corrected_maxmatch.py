@@ -1060,7 +1060,6 @@ def tokenize(text):
       if t.isalpha() and p_t.tag.POS not in {'PREP', 'CONJ', 'PRCL', "INTJ"}:
          word_parts = analysis(t)
          new_text = '▁' +' '.join(word_parts)
-         print(new_text)
       else:
          new_text = '▁' + t
    return new_text
