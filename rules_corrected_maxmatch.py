@@ -490,7 +490,7 @@ with open('Морфемно-орфографический словарь А. Н
             roots.append(k)
 
 
-def analysis(word):
+def analysis(word2):
     global word_parts
     global labels
     global unknown
@@ -499,7 +499,7 @@ def analysis(word):
     global morph
     global p
     global word
-    word_parts = [word]
+    word_parts = [word2]
     morph = pymorphy2.MorphAnalyzer()
     p = morph.parse(word)[0]
     labels = ['?']
