@@ -1060,9 +1060,8 @@ def tokenize(text):
       p_t = morph.parse(t)[0]
       if t.isalpha() and p_t.tag.POS not in {'PREP', 'CONJ', 'PRCL', "INTJ"}:
          word_parts = analysis(t)
-         new_text = '▁'+word_parts[0]+' ' +''.join([c+('#' if not re.search('[ойиюеёыя]',c) else ' ') for c in word_parts[1:]])
-         if len(word_parts) == 2:
-           new_text = re.sub(r' (.*?)#$',r'\1',new_text)
+         new_text = '▁'+word_parts[0]+' ' +''.join([c+('#' if not re.search('[ойиюуеёыя]',c) else ' ') for c in word_parts[1:]])
+         new_text = re.sub(r' \b(\w+)#$',r'\1',new_text)
          new_text = new_text.replace('#','')
          new_text = new_text.strip()
       else:
