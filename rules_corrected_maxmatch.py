@@ -1054,12 +1054,16 @@ def analysis(word2):
         return word_parts
 def tokenize(text):
    morph = pymorphy2.MorphAnalyzer()
-   text_tokenized = nltk.word_tokenize(text)
+   text_tokenized = nltk.word_tokenize(text.lower())
    for t in text_tokenized:
       p_t = morph.parse(t)[0]
       if t.isalpha() and p_t.tag.POS not in {'PREP', 'CONJ', 'PRCL', "INTJ"}:
          word_parts = analysis(t)
-         new_text = '▁' +' '.join(word_parts).strip()
+         new_text = '▁'+word_parts[0]+' ' +''.join([c+('#' if not re.search('[ойиюеёыя]',c) else ' ') for c in word_parts[1:]])
+         if len(word_parts) == 2:
+           new_text = re.sub(r' (.*?)#$',r'\1',new_text)
+         new_text = new_text.replace('#','')
+         new_text = new_text.strip()
       else:
          new_text = '▁' + t
    return new_text
