@@ -98,7 +98,7 @@ def identify_postfix_ending_i_suffix(morphemes, label):
             if len(word_parts):
                 word_parts[0] = rest
                 word_parts.insert(1, morpheme)
-    return word_parts
+    return word_parts, labels
 
 
 def identify_ending(lst):
@@ -158,13 +158,13 @@ def identify_ending(lst):
         labels.insert(1, 'окончание')
     else:
         word_parts.extend([before_ending, ending])
-    return word_parts
+    return word_parts, labels
 
 
 def insert_ending_or_i_suffix(morpheme, label):
     word_parts.insert(1, morpheme)
     labels.insert(1, label)
-    return word_parts
+    return word_parts, labels
 
 
 def identify_prefix(form_1, form_2, num):
@@ -219,7 +219,7 @@ def identify_prefix(form_1, form_2, num):
                                             break
                             if new_flag:
                                 break
-                return word_parts
+                return word_parts, labels
 
 
 
@@ -239,7 +239,7 @@ def identify_rep_part(form_1, form_2, num):
                 word_parts[num] = rest
                 word_parts.insert(num, rep_part)
                 labels.insert(num, 'повторяющийся компонент')
-    return word_parts
+    return word_parts, labels
 
 
 def prefix_and_suffix_simple(prefix, suffix):
@@ -252,7 +252,7 @@ def prefix_and_suffix_simple(prefix, suffix):
         labels.insert(2, 'суффикс')
         global mark
         mark = True
-    return word_parts
+    return word_parts, labels
 
 
 def prefix_and_suffix(prefix, suffix, new_ending):
@@ -283,7 +283,7 @@ def prefix_and_suffix(prefix, suffix, new_ending):
                     labels.insert(1, 'корень')
                     labels.insert(2, 'суффикс')
                     mark = True
-    return word_parts
+    return word_parts, labels
 
 
 def pref_or_rep_part(forms, function):
@@ -293,7 +293,7 @@ def pref_or_rep_part(forms, function):
     for i in range(1, 3):
         if new_flag:
             function(forms[i], forms[i + 1], i)
-    return word_parts
+    return word_parts, labels
 
 
 def identify_prefix_simple(prefix):
@@ -302,7 +302,7 @@ def identify_prefix_simple(prefix):
         word_parts.insert(0, prefix)
         labels[0] = 'корень'
         labels.insert(0, 'префикс')
-    return word_parts
+    return word_parts, labels
 
 
 def identify_suffix_simple(suffix):
@@ -313,7 +313,7 @@ def identify_suffix_simple(suffix):
         labels[i] = 'корень?'
         labels.insert(i + 1, 'суффикс')
         unknown = word_parts[i]
-    return word_parts
+    return word_parts, labels
 
 
 def identify_suffix(suffix, add_part, list_exceptions, necessary_form, pos_needed):
@@ -343,7 +343,7 @@ def identify_suffix(suffix, add_part, list_exceptions, necessary_form, pos_neede
                     p_new = morph.parse(word_new)[0]
                     if p_new.tag.POS == pos_needed:
                         identify_suffix_simple(suffix)
-    return word_parts
+    return word_parts, labels
 
 
 def pref_rep_part_suff(prefix, rep_part, suffix, new_ending):
@@ -377,14 +377,14 @@ def pref_rep_part_suff(prefix, rep_part, suffix, new_ending):
                     word_parts.insert(0, prefix)
                     labels.insert(0, 'префикс')
                     mark = True
-    return word_parts
+    return word_parts, labels
 
 
 def identify_suffix_full(suffix, add_part, list_exeptions, pos_needed):
     identify_suffix(suffix, add_part, list_exeptions, word_without_ending, pos_needed)
     if suffix not in word_parts:
         identify_suffix(suffix, add_part, list_exeptions, unknown, pos_needed)
-    return word_parts
+    return word_parts, labels
 
 
 def func(pref):
@@ -394,7 +394,7 @@ def func(pref):
         identify_prefix_simple(pref)
         global mark
         mark = True
-    return word_parts
+    return word_parts, labels
 
 
 def eni(necessary_form):
@@ -421,7 +421,7 @@ def eni(necessary_form):
                                     word_new = necessary_form[:-3][:-(len(alt))] + var + m
                                     if word_new in words:
                                         identify_suffix_simple(k)
-    return word_parts
+    return word_parts, labels
 
 
 def suff_nicha(necessary_form):
@@ -443,7 +443,7 @@ def suff_nicha(necessary_form):
                     if word_new in words:
                         word_parts[i] = unknown[:-3]
                         word_parts.insert(i + 1, 'ича')
-    return word_parts
+    return word_parts, labels
 
 
 def maxmatch(s):
