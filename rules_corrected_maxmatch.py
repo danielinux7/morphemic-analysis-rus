@@ -456,7 +456,7 @@ def maxmatch(s):
             j = len(s)
         else:
             j -= 1
-        if i == j:
+        if i >= j:
             break
     return '/'.join(word_parts)
 
