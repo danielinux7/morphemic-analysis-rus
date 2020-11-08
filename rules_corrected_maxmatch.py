@@ -1073,5 +1073,5 @@ def encode(filename):
       text = f.readlines()
       text2 = [t.strip().split(' ') for t in text]
       new_text = tqdm([' '.join([tokenize(t) for t in text])+'\n' for text in text2])
-   with open(filename+'_morphed.txt', 'w') as f:
+   with open(filename.replace('.txt','')+'_morphed.txt', 'w') as f:
       f.writelines(new_text)
