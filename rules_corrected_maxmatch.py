@@ -1,6 +1,7 @@
 #coding=utf-8
 import pymorphy2
 import nltk
+import re
 from tqdm import tqdm
 nltk.download('punkt')
 import string
