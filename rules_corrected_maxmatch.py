@@ -726,7 +726,7 @@ def analysis(word2):
             labels = labels[:-1]
 
     if mark:
-        return word_parts, labels
+        return word_parts
 
     elif not mark:
         global forms
